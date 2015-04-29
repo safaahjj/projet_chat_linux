@@ -53,8 +53,8 @@
         printf("%s connected to server\n",buf);  
       printf("\rYOU JOINED AS- %s",buffer-1);  
       send(sockfd,buf,strlen(buf),0);  
-      pthread_create(&thr2,NULL,(void *)chat_write,(void *)sockfd);     //thread creation for writing  
-      pthread_create(&thr1,NULL,(void *)readchat,(void *)sockfd);     //thread creation for reading  
+      pthread_create(&thr2,NULL,(void *)chat_write,(void *)&sockfd);     //thread creation for writing  
+      pthread_create(&thr1,NULL,(void *)readchat,(void *)&sockfd);     //thread creation for reading  
       pthread_join(thr2,NULL);  
       pthread_join(thr1,NULL);  
       return 0;  
@@ -90,7 +90,7 @@
         printf("%s",buf);  
           fgets(buffer,MAXDATALEN-1,stdin);  
          if(strlen(buffer)-1>sizeof(buffer)){  
-             printf("buffer size full\t enter within %d characters\n",sizeof(buffer));  
+             printf("buffer size full\t enter within %d characters\n",(int)sizeof(buffer));  
              bzero(buffer,MAXDATALEN);  
              __fpurge(stdin);  
              }  
@@ -103,4 +103,3 @@
  void *betta(){              
     printf("\rPLEASE TYPE 'quit' TO EXIT\n");  
  }  
-
